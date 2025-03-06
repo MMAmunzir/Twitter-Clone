@@ -3,21 +3,21 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema(
   {
     userName: {
-      type: string,
+      type: String,
       required: true,
       unique: true,
     },
     fullName: {
-      type: string,
+      type: String,
       required: true,
     },
     password: {
-      type: string,
+      type: String,
       required: true,
       minLength: 6,
     },
     email: {
-      type: string,
+      type: String,
       required: true,
     },
     followers: [
@@ -35,19 +35,19 @@ const userSchema = new mongoose.Schema(
       },
     ],
     profileImage: {
-      type: string,
+      type: String,
       default: "",
     },
     coverImage: {
-      type: string,
+      type: String,
       default: "",
     },
     bio: {
-      type: string,
+      type: String,
       default: "",
     },
     link: {
-      type: string,
+      type: String,
       default: "",
     },
   },
