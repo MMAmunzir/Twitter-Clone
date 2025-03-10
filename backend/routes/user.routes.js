@@ -7,11 +7,11 @@ import {
   updateUser,
 } from "../controllers/user.controllers.js";
 
-const routes = express.Router();
+const router = express.Router();
 
-routes.get("/profile/:userName", protectRoute, getUserProfile);
-routes.get("/suggested", protectRoute, getSuggestedUsers);
-routes.post("/follow/:id", protectRoute, followUnfollowUser);
-routes.post("/update", protectRoute, updateUser);
+router.get("/profile/:userName", protectRoute, getUserProfile);
+router.get("/suggested", protectRoute, getSuggestedUsers);
+router.post("/follow/:id", protectRoute, followUnfollowUser);
+router.post("/update", protectRoute, updateUser);
 
-export default routes;
+export default router;
