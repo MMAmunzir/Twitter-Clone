@@ -89,12 +89,14 @@ export const likeUnlikePost = async (req, res) => {
     const userLikedPost = post.likes.includes(userId);
 
     if (userLikedPost) {
-      await Post.findByIdAndUpdate(postId, { $pull: { likes: userId } });
-      await User.findByIdAndUpdate(userId, { $pull: { likedPosts: postId } });
-      res.status(200).json({ message: "post unliked" });
+      await Post.updateOne({ _id: postId }, { $pull: { likes: userId } });
+      await User.updateOne({ _id: userId }, { $pull: { likedPosts: postId } });
+
+      const updatedLikes = post.likes.filter((id) => id.toString() !== userId);
+      res.status(200).json(updatedLikes);
     } else {
       post.likes.push(userId);
-      await User.findByIdAndUpdate(userId, { $push: { likedPosts: postId } });
+      await User.updateOne({ _id: userId }, { $push: { likedPosts: postId } });
       await post.save();
 
       const notification = new Notification({
@@ -104,7 +106,8 @@ export const likeUnlikePost = async (req, res) => {
       });
       await notification.save();
 
-      res.status(200).json({ message: "post liked" });
+      const updatedLikes = post.likes;
+      res.status(200).json(updatedLikes);
     }
   } catch (error) {
     res.status(500).json({ error: error.message });

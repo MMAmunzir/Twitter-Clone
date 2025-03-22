@@ -7,17 +7,11 @@ import NotificationPage from "./pages/notification/NotificationPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import RightPanel from "./components/common/RightPanel.jsx";
 import { Toaster } from "react-hot-toast";
-import { retry } from "@reduxjs/toolkit/query";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "./components/common/LoadingSpinner.jsx";
 
 function App() {
-  const {
-    data: authUser,
-    isLoading,
-    error,
-    isError,
-  } = useQuery({
+  const { data: authUser, isLoading } = useQuery({
     queryKey: ["authUser"],
     queryFn: async () => {
       try {
@@ -29,7 +23,6 @@ function App() {
         if (!res.ok) {
           throw new Error(data.error || "Something went wrong");
         }
-        console.log(authUser);
         return data;
       } catch (error) {
         throw new Error(error);
