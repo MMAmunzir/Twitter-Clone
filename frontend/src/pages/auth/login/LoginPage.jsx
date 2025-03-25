@@ -39,7 +39,6 @@ const LoginPage = () => {
         if (data.error) {
           throw new Error(data.error);
         }
-        console.log(data);
       } catch (error) {
         throw new Error(error);
       }
